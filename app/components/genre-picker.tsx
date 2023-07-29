@@ -1,4 +1,3 @@
-"use client";
 import GenreBtn from "@/app/components/genreBtn";
 import { useEffect, useState } from "react";
 const shuffle = (array: string[]) => {
@@ -11,41 +10,44 @@ const shuffle = (array: string[]) => {
 
 export default function GenrePicker({
   genres,
-  submitGenres,
+  submitGenre,
 }: {
   genres: string[];
-  submitGenres: (genres: string[]) => void;
+  submitGenre: (genre: string) => void;
 }) {
   const [picks, setPicks] = useState<string[]>([]);
-  const [selectedGenres, setSelectedGenre] = useState<string[]>([]);
+  const [skipped, setSkipped] = useState<string[]>([]);
+
   useEffect(() => {
     setPicks(shuffle(genres).slice(0, 5));
   }, [genres]);
 
-  function pickGenre(genre: string) {
-    if (selectedGenres.includes(genre)) {
-      setSelectedGenre(selectedGenres.filter((g) => g !== genre));
-    } else {
-      setSelectedGenre([...selectedGenres, genre]);
-    }
+  useEffect(() => {
+    // updating `skipped` shuffles and gives new picks
+    const filtered = genres.filter((genre) => !skipped.includes(genre));
+    setPicks(shuffle(filtered).slice(0, 5));
+  }, [skipped, genres]);
+
+  function skipGenres() {
+    // remove the current picks from genres
+    setSkipped((prevState) => [...prevState, ...picks]);
   }
 
   return (
     <section>
-      Pick at least one genre:
-      {selectedGenres.map((d, i) => (
-        <div key={i}>s {d}</div>
-      ))}
+      <h2 className="p-2 font-bold">Pick a genre</h2>
+      <button onClick={skipGenres} className="rounded bg-slate-300 p-2">
+        Give me other genres
+      </button>
       <div>
         {picks.map((genre, i) => (
           <GenreBtn
             key={i}
             genre={genre}
-            onSelect={() => pickGenre(genre)}
+            onSelect={() => submitGenre(genre)}
           ></GenreBtn>
         ))}
       </div>
-      <button onClick={() => submitGenres(selectedGenres)}>Next</button>
     </section>
   );
 }

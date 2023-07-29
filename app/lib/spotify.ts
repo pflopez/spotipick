@@ -1,4 +1,4 @@
-import { Scopes, SpotifyApi } from "@spotify/web-api-ts-sdk";
+import { Scopes, SpotifyApi, Track } from "@spotify/web-api-ts-sdk";
 
 export class Spotify {
   sdk: SpotifyApi;
@@ -18,7 +18,16 @@ export class Spotify {
   }
 
   authenticate() {
-    console.log("auth dude");
     return this.sdk.authenticate();
+  }
+
+  getTracks(genre: string) {
+    const search = `genre:${genre}`;
+    return this.sdk.search(search, ["track"]);
+  }
+
+  getRecommendations(tracks: Track[]) {
+    const ids = tracks.map((track) => track.id);
+    return this.sdk.recommendations.get({ seed_tracks: ids });
   }
 }

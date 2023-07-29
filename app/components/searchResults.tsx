@@ -1,4 +1,3 @@
-"use client";
 import Album from "@/app/components/album";
 import { SearchResults } from "@spotify/web-api-ts-sdk";
 import { useEffect, useState } from "react";
