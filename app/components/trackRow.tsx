@@ -31,7 +31,7 @@ export default function TrackRow({ track, selectTrack }: Props) {
         </button>
         <div>
           <button
-            className="mt-1 font-medium leading-none"
+            className="mt-1 font-medium leading-none text-left"
             onClick={() => selectTrack(track)}
           >
             {track.name}

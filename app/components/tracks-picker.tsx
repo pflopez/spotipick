@@ -51,24 +51,39 @@ export default function TracksPicker({
 
   return (
     <section>
-      <h2>Now pick your favorite track from this</h2>
-      <div className="grid grid-cols-5 gap-2">
-        {displayedTracks.map((track) => (
-          <TrackComponent
-            key={track.id}
-            track={track}
-            selectTrack={selectTrack}
-          />
-        ))}
-      </div>
-
-      <div>Selected Tracks </div>
-      <div className="mb-1">
-        {selectedTracks.map((track) => (
-          <TrackRow key={track.id} track={track} selectTrack={selectTrack} />
-        ))}
-      </div>
-      <button onClick={submitTracks}>Next</button>
+      {displayedTracks.length > 0 && (
+        <div>
+          <h2 className="mb-3 font-bold">
+            Now pick your favorite track from this options:
+          </h2>
+          <div className="grid grid-cols-5 gap-2 mb-8">
+            {displayedTracks.map((track) => (
+              <TrackComponent
+                key={track.id}
+                track={track}
+                selectTrack={selectTrack}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      {selectedTracks.length > 0 && (
+        <div>
+          <div>Selected Tracks </div>
+          <div className="mb-1">
+            {selectedTracks.map((track) => (
+              <TrackRow
+                key={track.id}
+                track={track}
+                selectTrack={selectTrack}
+              />
+            ))}
+          </div>
+          <button onClick={submitTracks} className="rounded bg-slate-300 p-2">
+            Next
+          </button>
+        </div>
+      )}
     </section>
   );
 }

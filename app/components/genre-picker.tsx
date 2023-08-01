@@ -35,7 +35,7 @@ export default function GenrePicker({
   }
 
   return (
-    <section>
+    <section className="text-center">
       <h2 className="p-2 font-bold">Pick a genre</h2>
 
       <div className="mb-10">
@@ -52,7 +52,7 @@ export default function GenrePicker({
       )}
       <button
         onClick={skipGenres}
-        className="rounded bg-slate-300 p-2 flex items-center gap-1"
+        className="rounded bg-slate-300 p-2 flex items-center gap-1 justify-center m-auto"
       >
         <TbReload /> Give me other genres
       </button>

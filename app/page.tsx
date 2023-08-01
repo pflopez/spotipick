@@ -37,7 +37,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="max-w-5xl m-auto">
       <SpotifyContext.Provider value={spotify}>
         <Connector></Connector>
         {step === "pick-genre" && <StartingGenres submitGenres={setGenres} />}
