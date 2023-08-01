@@ -1,5 +1,6 @@
 import GenreBtn from "@/app/components/genreBtn";
 import { useEffect, useState } from "react";
+import { TbReload } from "react-icons/tb";
 const shuffle = (array: string[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -36,10 +37,8 @@ export default function GenrePicker({
   return (
     <section>
       <h2 className="p-2 font-bold">Pick a genre</h2>
-      <button onClick={skipGenres} className="rounded bg-slate-300 p-2">
-        Give me other genres
-      </button>
-      <div>
+
+      <div className="mb-10">
         {picks.map((genre, i) => (
           <GenreBtn
             key={i}
@@ -48,6 +47,15 @@ export default function GenrePicker({
           ></GenreBtn>
         ))}
       </div>
+      {picks.length === 0 && skipped.length > 0 && (
+        <div>Woah nothing works for you huh.</div>
+      )}
+      <button
+        onClick={skipGenres}
+        className="rounded bg-slate-300 p-2 flex items-center gap-1"
+      >
+        <TbReload /> Give me other genres
+      </button>
     </section>
   );
 }

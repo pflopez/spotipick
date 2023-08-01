@@ -27,7 +27,7 @@ export default function GetRecommendations({ tracks }: Props) {
   return (
     <section>
       <h1>Sweet getting recommendations...</h1>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-5  gap-2">
         {recommendedTracks.map((track) => (
           <TrackComponent
             key={track.id}

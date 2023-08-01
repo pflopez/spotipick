@@ -30,4 +30,21 @@ export class Spotify {
     const ids = tracks.map((track) => track.id);
     return this.sdk.recommendations.get({ seed_tracks: ids });
   }
+
+  async getDevice() {
+    console.log("getting device");
+    const playbackState = await this.sdk.player.getPlaybackState();
+    return playbackState?.device;
+  }
+
+  async play(track: Track) {
+    // const state = await this.sdk.player.getPlaybackState();
+    // console.log("state", state);
+    // if (state.device.id) {
+    //
+    // }
+    const player = await this.sdk.player.startResumePlayback("", undefined, [
+      track.uri,
+    ]);
+  }
 }

@@ -8,9 +8,10 @@ import { Spotify } from "@/app/lib/spotify";
 import TracksPicker from "@/app/components/tracks-picker";
 import { Track } from "@spotify/web-api-ts-sdk";
 import GetRecommendations from "@/app/components/getRecommendations";
+import Connector from "@/app/components/connector";
 export default function Home() {
   const [step, setStep] = useState<Step>("pick-genre");
-  const [selectedGenre, setSelectedGenre] = useState<string>();
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedTracks, setSelectedTracks] = useState<Track[]>([]);
   const [spotify] = useState(new Spotify());
 
@@ -37,18 +38,20 @@ export default function Home() {
 
   return (
     <div>
-      <SpotifyContext.Provider value={spotify}></SpotifyContext.Provider>
-      {step === "pick-genre" && <StartingGenres submitGenres={setGenres} />}
+      <SpotifyContext.Provider value={spotify}>
+        <Connector></Connector>
+        {step === "pick-genre" && <StartingGenres submitGenres={setGenres} />}
 
-      {step === "pick-album" && (
-        <TracksPicker
-          selectedGenre={selectedGenre}
-          onSubmitTracks={getSumittedTracks}
-        />
-      )}
-      {step === "get-recommendations" && (
-        <GetRecommendations tracks={selectedTracks} />
-      )}
+        {step === "pick-album" && (
+          <TracksPicker
+            selectedGenre={selectedGenre}
+            onSubmitTracks={getSumittedTracks}
+          />
+        )}
+        {step === "get-recommendations" && (
+          <GetRecommendations tracks={selectedTracks} />
+        )}
+      </SpotifyContext.Provider>
     </div>
   );
 }

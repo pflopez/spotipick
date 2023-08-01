@@ -8,7 +8,7 @@ interface Props {
   track: Track;
   selectTrack: (track: Track) => void;
 }
-export default function TrackComponent({ track, selectTrack }: Props) {
+export default function TrackRow({ track, selectTrack }: Props) {
   const spotify = useContext<Spotify>(SpotifyContext);
 
   function play(e: React.MouseEvent<HTMLButtonElement>) {
@@ -18,9 +18,9 @@ export default function TrackComponent({ track, selectTrack }: Props) {
   }
 
   return (
-    <article className="rounded bg-slate-200 text-sm">
+    <article className="rounded text-sm flex ">
       <img
-        className="rounded-t aspect-square mb-3 cursor-pointer"
+        className="rounded-t aspect-square mb-3 cursor-pointer h-12"
         src={track.album.images[0].url}
         alt={track.album.name}
         onClick={() => selectTrack(track)}
