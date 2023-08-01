@@ -28,7 +28,7 @@ export class Spotify {
 
   getRecommendations(tracks: Track[]) {
     const ids = tracks.map((track) => track.id);
-    return this.sdk.recommendations.get({ seed_tracks: ids });
+    return this.sdk.recommendations.get({ seed_tracks: ids, limit: 100 });
   }
 
   async getDevice() {
@@ -46,5 +46,28 @@ export class Spotify {
     const player = await this.sdk.player.startResumePlayback("", undefined, [
       track.uri,
     ]);
+  }
+
+  async createPlaylist(tracks: Track[], name: string) {
+    const user = await this.sdk.currentUser.profile();
+    const playlist = await this.sdk.playlists.createPlaylist(user.id, {
+      name: name,
+    });
+    if (playlist) {
+      const total = tracks.length;
+      const chunks: Track[][] = [];
+      for (let i = 0; i < total; i += 100) {
+        chunks.push(tracks.slice(i, i + 100));
+      }
+
+      return Promise.allSettled(
+        chunks.map((chunk) =>
+          this.sdk.playlists.addItemsToPlaylist(
+            playlist.id,
+            chunk.map((track) => track.uri),
+          ),
+        ),
+      );
+    }
   }
 }

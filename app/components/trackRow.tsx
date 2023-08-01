@@ -26,9 +26,6 @@ export default function TrackRow({ track, selectTrack }: Props) {
         onClick={() => selectTrack(track)}
       />
       <div className="flex gap-3 items-start p-2 mb-3 text-left">
-        <button onClick={(e) => play(e)} className="mt-1.5">
-          <BsPlayCircle className="h-6 w-auto" />
-        </button>
         <div>
           <button
             className="mt-1 font-medium leading-none text-left"

@@ -11,14 +11,8 @@ interface Props {
 export default function TrackComponent({ track, selectTrack }: Props) {
   const spotify = useContext<Spotify>(SpotifyContext);
 
-  function play(e: React.MouseEvent<HTMLButtonElement>) {
-    spotify.play(track);
-    e.preventDefault();
-    return false;
-  }
-
   return (
-    <article className="rounded bg-slate-200 text-sm">
+    <article className="rounded bg-slate-200 text-sm transition duration-150 ease-in-out  hover:-translate-y-2">
       <img
         className="rounded-t aspect-square mb-3 cursor-pointer"
         src={track.album.images[0].url}
@@ -26,9 +20,9 @@ export default function TrackComponent({ track, selectTrack }: Props) {
         onClick={() => selectTrack(track)}
       />
       <div className="flex gap-3 items-start p-2 mb-3 text-left">
-        <button onClick={(e) => play(e)} className="mt-1.5">
+        <a target="_blank" href={track.uri} className="mt-1.5">
           <BsPlayCircle className="h-6 w-auto" />
-        </button>
+        </a>
         <div>
           <button
             className="mt-1 font-medium leading-none text-left"

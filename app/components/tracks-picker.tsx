@@ -80,7 +80,7 @@ export default function TracksPicker({
             ))}
           </div>
           <button onClick={submitTracks} className="rounded bg-slate-300 p-2">
-            Next
+            Get Recommendations
           </button>
         </div>
       )}

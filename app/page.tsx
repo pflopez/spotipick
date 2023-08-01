@@ -39,7 +39,6 @@ export default function Home() {
   return (
     <div className="max-w-5xl m-auto">
       <SpotifyContext.Provider value={spotify}>
-        <Connector></Connector>
         {step === "pick-genre" && <StartingGenres submitGenres={setGenres} />}
 
         {step === "pick-album" && (
@@ -49,7 +48,7 @@ export default function Home() {
           />
         )}
         {step === "get-recommendations" && (
-          <GetRecommendations tracks={selectedTracks} />
+          <GetRecommendations tracks={selectedTracks} genre={selectedGenre} />
         )}
       </SpotifyContext.Provider>
     </div>
